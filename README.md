@@ -73,7 +73,7 @@ nlp = spacy.load('en_core_web_sm')
 
 Automated tests ensure that the components in this project work as expected. This project uses `pytest` for testing purposes, which allows us to run the tests efficiently and identify any issues quickly. There are 3 tests
 
-All tests can be found here: [Tests](dsnd-pipelines-project/starter/test_pipeline.py)
+All tests can be found here: [Tests](starter/test_pipeline.py)
 
 ### Break Down Tests
 
