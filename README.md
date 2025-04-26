@@ -104,7 +104,7 @@ All tests can be found here: [Tests](starter/test_pipeline.py)
 
 ## Results
 
-Metrics Explanation
+1. Metrics Explanation
 
 Accuracy:
 Percentage of total reviews (both positive and negative) that the model correctly classified.
@@ -128,7 +128,7 @@ Class 1 = Customer would recommend the product (positive review)
 Class 0 = Customer would not recommend the product (negative review)
 
 
-Models Evaluated:
+2. Models Evaluated:
 
 
 Model	Description
@@ -139,7 +139,7 @@ Results 4	Gradient Boosting Classifier (default settings)
 Results 5	XGBoost Classifier (with scale_pos_weight=5)
 Results 6	XGBoost Classifier (with scale_pos_weight=1)
 
-Performance Overview
+3. Performance Overview
 
 Result	               Accuracy	Precision  Recall	F1_Score  Class_0_F1_Score	Class_1_F1_Score
 1 (RandomForest 
@@ -153,7 +153,7 @@ scale_pos_weight=5)	    0.854	 0.864	   0.975	  0.916	      0.41	              0
 6 (XGBoost 
 scale_pos_weight=1)	    0.870	 0.893	   0.958	  0.924	      0.56	              0.92
 
-Summary
+5. Summary
 
 The XGBoost model with scale_pos_weight=1, Result 6, should be deployed as the production model for predicting product recommendations, based on customer reviews at StyleSense. We evaluated several machine learning models to predict whether customers would recommend StyleSense products based on their text-based reviews and other details.
 
