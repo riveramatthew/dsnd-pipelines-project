@@ -10,6 +10,12 @@ As a data scientist at StyleSense, my task was to build a predictive model that 
 
 By automating this process, StyleSense will gain valuable insights into customer satisfaction and be better equipped to spot trends and improve their customer's shopping experience.
 
+I. To gain insight into customer satisfaction.
+
+II. To automatically label missing recommendation fields.
+
+III. To better forecast trending products and customer sentiment.
+
 # File Description
 
 
@@ -67,7 +73,7 @@ nlp = spacy.load('en_core_web_sm')
 
 Automated tests ensure that the components in this project work as expected. This project uses `pytest` for testing purposes, which allows us to run the tests efficiently and identify any issues quickly. There are 3 tests
 
-All tests can be found here:[Tests](test_pipeline.py)
+All tests can be found here: [Tests](dsnd-pipelines-project/starter/test_pipeline.py)
 
 ### Break Down Tests
 
@@ -83,18 +89,76 @@ All tests can be found here:[Tests](test_pipeline.py)
 ## Project Instructions
 
 ```
-Handle missing data for numerical, categorical, and text fields.
+1. Handle missing data for numerical, categorical, and text fields.
 
-Build a preprocessing pipeline using Pipeline and ColumnTransformer.
+2. Build a preprocessing pipeline using Pipeline and ColumnTransformer.
 
-Apply TF-IDF vectorization to review text to highlight unique and informative terms.
+3. Apply TF-IDF vectorization to review text to highlight unique and informative terms.
 
-Train and evaluate a classification model (e.g., RandomForestClassifier).
+4. Train and evaluate a classification model (e.g., RandomForestClassifier).
 
-Assess model performance with precision, recall, and F1-score.
+5. Assess model performance with precision, recall, and F1-score.
 
-Discuss challenges such as data imbalance and how it affects predictions.
+6. Discuss challenges and how it affects predictions.
 ```
+
+## Results
+
+Metrics Explanation
+
+Accuracy:
+Percentage of total reviews (both positive and negative) that the model correctly classified.
+(High accuracy means the model usually predicts customer sentiment correctly.)
+
+Precision:
+Of all reviews the model predicted as "would recommend" (positive), how many were actually correct.
+(Important when we want to avoid falsely assuming a customer is happy.)
+
+Recall:
+Of all actual positive reviews, how many the model successfully identified.
+(High recall means we are capturing almost all true happy customers.)
+
+F1 Score:
+The harmonic mean of precision and recall, balancing the two.
+(This is crucial when there is class imbalance, like here. A high F1 means the model is strong at identifying both recommending and non-recommending customers accurately.)
+
+In our case, F1 score is the most important metric because it ensures that the model is not only good at detecting positive reviews (Class 1) but also improves at detecting the less common negative reviews (Class 0).
+
+Class 1 = Customer would recommend the product (positive review)
+Class 0 = Customer would not recommend the product (negative review)
+
+
+Models Evaluated:
+
+
+Model	Description
+Results 1	Random Forest (default)
+Results 2	Random Forest (after basic GridSearchCV tuning)
+Results 3	XGBoost Classifier (with scale_pos_weight=2)
+Results 4	Gradient Boosting Classifier (default settings)
+Results 5	XGBoost Classifier (with scale_pos_weight=5)
+Results 6	XGBoost Classifier (with scale_pos_weight=1)
+
+Performance Overview
+
+Result	               Accuracy	Precision  Recall	F1_Score  Class_0_F1_Score	Class_1_F1_Score
+1 (RandomForest 
+        default)	    0.848	 0.850	   0.990	  0.915	      0.31	              0.91
+2 (RandomForest tuned)	0.823	 0.823	   1.000	  0.903	      0.00	              0.90
+3 (XGBoost 
+scale_pos_weight=2)	    0.867	 0.877	   0.975	  0.924	      0.49	              0.92
+4 (GradientBoosting)	0.854	 0.864	   0.975	  0.916	      0.41	              0.92
+5 (XGBoost 
+scale_pos_weight=5)	    0.854	 0.864	   0.975	  0.916	      0.41	              0.92
+6 (XGBoost 
+scale_pos_weight=1)	    0.870	 0.893	   0.958	  0.924	      0.56	              0.92
+
+Summary
+
+The XGBoost model with scale_pos_weight=1, Result 6, should be deployed as the production model for predicting product recommendations, based on customer reviews at StyleSense. We evaluated several machine learning models to predict whether customers would recommend StyleSense products based on their text-based reviews and other details.
+
+The best model achieved 87% accuracy and the highest F1 score of 92.4%, meaning it balances identifying both happy and unhappy customer reviews better than any other model tested. While it still favors satisfied customer reviews (which matches real customer behavior), it is also much better than previous models at spotting negative reviews, helping StyleSense quickly address product issues. This model is now ready to help StyleSense track customer satisfaction at scale and drive smarter business decisions.
+
 
 ## Built With
 
